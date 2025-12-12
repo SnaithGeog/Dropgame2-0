@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Copperplate+Gothic&family=Roboto+Condensed:wght@700&display=swap');
+
+:root {
+  --bg-dark: #000022;
+  --bg-light: #000044;
+  --gold: #d4af37;
+  --gold-glow: #fffacd;
+  --orange: #ff9900;
+  --white: #ffffff;
+  --hex-bg: linear-gradient(to bottom, #000022, #000000);
+  --hex-border: #6688cc;
+  --correct-bg: #00aa00;
+  --correct-border: #00ff00;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Roboto Condensed', sans-serif;
+  background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+  color: var(--white);
+  overflow: hidden;
+  user-select: none;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.screen {
+  display: none;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.5s;
+}
+.screen.active { display: flex; }
+
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+/* === LOGO IMAGE STYLES === */
+.logo-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.main-logo-img {
+    width: 250px;
+    max-width: 80vw;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
+    animation: pulse-logo 3s infinite ease-in-out;
+}
+.main-logo-img.small { width: 120px; }
+
+@keyframes pulse-logo {
+    0% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.1)); }
+    50% { transform: scale(1.03); filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6)); }
+    100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.1)); }
+}
+
+h2 {
+  color: var(--gold);
+  font-family: 'Copperplate', serif;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px #000;
+  margin: 10px 0;
+}
+
+.intro-box { text-align: center; }
+.host-text { font-size: 1.2em; margin-bottom: 5px; }
+.sub-text { font-style: italic; color: #aaa; margin-bottom: 20px; }
+.cast-list { font-size: 0.8em; color: #888; margin-bottom: 20px; max-width: 600px; line-height: 1.4; }
+.tap-hint { font-size: 0.8em; color: #666; margin-top: 10px; }
+
+/* === GAME LAYOUT === */
+.top-bar {
+  width: 100%; max-width: 900px;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.lifelines { display: flex; gap: 8px; }
+.lifeline {
+  width: 45px; height: 30px;
+  border: 1px solid var(--hex-border);
+  border-radius: 15px;
+  display: grid; place-items: center;
+  background: black;
+  color: var(--gold);
+  font-size: 12px;
+}
+.lifeline.crossed { position: relative; color: #555; border-color: #555; }
+.lifeline.crossed::after {
+  content: ''; position: absolute; width: 100%; height: 2px;
+  background: red; transform: rotate(-20deg);
+}
+
+.score-box {
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  background: rgba(0,0,0,0.5);
+  font-family: 'Copperplate', serif;
+}
+
+.game-area {
+  width: 100%; max-width: 900px;
+  display: flex; flex-direction: column; gap: 15px;
+  flex: 1;
+  justify-content: center;
+}
+
+/* === NARRATIVE BOX === */
+.narrative-box {
+  background: rgba(0,0,0,0.6);
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  padding: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px #000;
+  min-height: 100px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* === HEXAGON STYLES === */
+.question-container { width: 100%; margin: 10px 0; }
+.hex-row {
+  display: flex; align-items: center; justify-content: center;
+}
+.hex-line {
+  height: 2px; background: var(--white); flex: 1;
+  margin: 0 -2px; /* Connects lines to hex */
+  opacity: 0.5;
+}
+.hex-content {
+  background: var(--hex-bg);
+  border: 2px solid var(--white);
+  border-radius: 10px;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 1.3em;
+  min-width: 60%;
+  position: relative;
+  z-index: 2;
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
+}
+
+.answers-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+
+.answer-hex {
+  background: var(--hex-bg);
+  border: 1px solid var(--hex-border);
+  border-radius: 30px;
+  padding: 15px 20px;
+  display: flex; align-items: center;
+  position: relative;
+  transition: all 0.3s;
+}
+
+/* Connectors for answers */
+.answer-hex::before {
+  content: ''; position: absolute;
+  top: 50%; left: -20px; width: 20px; height: 1px;
+  background: var(--hex-border);
+}
+.answer-hex:nth-child(even)::before {
+  left: auto; right: -20px;
+}
+
+.answer-hex.correct {
+  background: var(--correct-bg);
+  border-color: var(--correct-border);
+  color: black;
+  font-weight: bold;
+  box-shadow: 0 0 30px var(--correct-border);
+  animation: flash 0.5s infinite alternate;
+}
+.answer-hex.correct .letter { color: black; }
+
+@keyframes flash { from {opacity: 1;} to {opacity: 0.6;} }
+
+.letter {
+  color: var(--orange);
+  font-family: 'Copperplate', serif;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-right: 10px;
+}
+
+.text { font-size: 1.1em; }
+
+/* === BUTTONS === */
+.controls-area {
+  display: flex; justify-content: center;
+  height: 60px; margin-top: 10px;
+}
+
+.btn-millionaire {
+  background: linear-gradient(to bottom, #0044cc, #000066);
+  border: 2px solid var(--hex-border);
+  color: white;
+  padding: 15px 40px;
+  font-family: 'Copperplate', serif;
+  font-size: 1.2em;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+.btn-millionaire:active { transform: scale(0.95); }
+.btn-millionaire.big { font-size: 1.5em; padding: 20px 60px; }
+
+.hidden { display: none; }
+.blink { animation: blink 1s infinite; color: var(--orange); }
+@keyframes blink { 50% {opacity:0;} }
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .answers-grid { grid-template-columns: 1fr; gap: 10px; }
+  .answer-hex::before { display: none; } /* Hide lines on mobile vertical stack */
+  .narrative-box { font-size: 1em; padding: 10px; }
+}

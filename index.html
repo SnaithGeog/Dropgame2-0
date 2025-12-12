@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Snaith Millionaire</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000022" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+</head>
+
+<body>
+  <audio id="music-intro" loop>
+    <source src="intro.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="music-game" loop>
+    <source src="game.mp3" type="audio/mpeg" />
+  </audio>
+
+  <main id="app">
+
+    <div id="screen-start" class="screen active">
+      <div class="logo-container">
+        <img src="logo.png" alt="Snaith Millionaire Logo" class="main-logo-img">
+      </div>
+
+      <div class="intro-box">
+        <h2>SPECIAL EDITION</h2>
+        <p class="host-text">HOST & VICTIM: <strong>MR. HARRISON</strong></p>
+        <p class="sub-text">"The True Story of My Financial Ruin"</p>
+        <div class="cast-list">
+            <p>Featuring: Mrs. Yates, Mr. Baines, Mr. Wilson, Mrs. Gravel, Miss McCloud, Mr. Haggar, Mr. Ward, Mrs. Kilner, Mr. Collins, Mrs. Edge, Mr. Francis & Miss Maguinness.</p>
+        </div>
+        <button id="btn-enter" class="btn-millionaire big">ENTER STUDIO</button>
+        <p class="tap-hint">(Tap to start music)</p>
+      </div>
+    </div>
+
+    <div id="screen-game" class="screen">
+      <header class="top-bar">
+        <div class="lifelines">
+          <span class="lifeline crossed">50:50</span>
+          <span class="lifeline">📞</span>
+          <span class="lifeline">👥</span>
+        </div>
+        <div class="score-box">
+          QUESTION <span id="q-count">1</span> / 15
+        </div>
+      </header>
+
+      <div class="game-area">
+
+        <div class="narrative-box">
+          <p id="story-text">Story loads here...</p>
+        </div>
+
+        <div class="question-container">
+          <div class="hex-row">
+            <div class="hex-line"></div>
+            <div class="hex-content" id="question-text">Question loads here...</div>
+            <div class="hex-line"></div>
+          </div>
+        </div>
+
+        <div class="answers-grid">
+          <div class="answer-hex" id="opt-a-card">
+            <span class="letter">A:</span> <span class="text" id="opt-a"></span>
+          </div>
+          <div class="answer-hex" id="opt-b-card">
+            <span class="letter">B:</span> <span class="text" id="opt-b"></span>
+          </div>
+          <div class="answer-hex" id="opt-c-card">
+            <span class="letter">C:</span> <span class="text" id="opt-c"></span>
+          </div>
+          <div class="answer-hex" id="opt-d-card">
+            <span class="letter">D:</span> <span class="text" id="opt-d"></span>
+          </div>
+        </div>
+
+        <div class="controls-area">
+          <button id="btn-reveal" class="btn-millionaire action">REVEAL ANSWER</button>
+          <button id="btn-next" class="btn-millionaire action hidden">NEXT QUESTION</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-end" class="screen">
+      <div class="logo-container small">
+        <img src="logo.png" alt="Logo" class="main-logo-img small">
+      </div>
+      <h2 class="blink">GAME OVER</h2>
+      <div class="final-box">
+        <p id="final-message"></p>
+      </div>
+      <button id="btn-play-again" class="btn-millionaire">PLAY AGAIN</button>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    if('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js');
+  </script>
+</body>
+</html>
