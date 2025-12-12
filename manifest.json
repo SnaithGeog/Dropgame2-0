@@ -6,6 +6,7 @@
   "display": "standalone",
   "background_color": "#000022",
   "theme_color": "#000022",
+  "orientation": "landscape",
   "icons": [
     {
       "src": "https://via.placeholder.com/192/000044/FFD700?text=$",
